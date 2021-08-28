@@ -1,0 +1,34 @@
+#Requirments
+A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
+2 GB or more of RAM per machine (any less will leave little room for your apps).
+2 CPUs or more.
+Full network connectivity between all machines in the cluster (public or private network is fine).
+Unique hostname, MAC address, and product_uuid for every node. See here for more details.
+Certain ports are open on your machines. See here for more details.
+Swap disabled. You MUST disable swap in order for the kubelet to work properly.
+
+#installation
+1. cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+br_netfilter
+EOF
+
+2.cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+3. sudo sysctl --system
+
+4. sudo apt-get update
+
+5. sudo apt-get install -y apt-transport-https ca-certificates curl
+
+6. sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+7. echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+8. sudo apt-get update
+
+9. sudo apt-get install -y kubelet kubeadm kubectl
+
+10. sudo apt-mark hold kubelet kubeadm kubectl
