@@ -8,6 +8,10 @@ Certain ports are open on your machines. See here for more details.
 Swap disabled. You MUST disable swap in order for the kubelet to work properly.
 
 #installation
+
+! first run the folloing command and then proceed !
+sudo apt-get update -y && sudo apt-get updgrde -y
+
 1. cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 br_netfilter
 EOF
